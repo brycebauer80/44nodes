@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Terminal Chat</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="container">
+    <div id="terminal" class="terminal" aria-live="polite"></div>
+
+    <form id="inputForm" class="input-form" autocomplete="off">
+      <input id="cmdInput" class="cmd-input" placeholder="Type here and press Enter..." />
+      <button type="submit">Send</button>
+    </form>
+
+    <div id="choiceButtons" class="choices hidden">
+      <button id="acceptBtn" class="choice">Accept</button>
+      <button id="declineBtn" class="choice">Decline</button>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
