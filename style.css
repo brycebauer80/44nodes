@@ -1,0 +1,30 @@
+body {
+  margin: 0;
+  background: black;
+  color: #00ff66;
+  font-family: monospace;
+  height: 100vh;
+}
+
+#terminal {
+  padding: 20px;
+}
+
+#output {
+  white-space: pre-wrap;
+  margin-bottom: 10px;
+}
+
+.input-line {
+  display: flex;
+  gap: 10px;
+}
+
+input {
+  background: transparent;
+  border: none;
+  color: #00ff66;
+  outline: none;
+  font-family: monospace;
+  width: 100%;
+}
