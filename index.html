@@ -6,19 +6,51 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
+  <div id="header" style="display:flex;align-items:center;padding:16px 20px 0 20px;">
+    <img id="header-icon" src="icon.png" alt="Node Icon" style="height:32px;width:32px;vertical-align:middle;margin-right:10px;">
+    <span id="header-title" style="font-size:1.2em;font-weight:bold;">Loading...</span>
+  </div>
   <div id="terminal">
     <div id="output"></div>
-
     <div class="input-line">
       <span>>></span>
       <input type="text" id="input" autofocus />
     </div>
   </div>
-
   <script>
-    window.NODE_FILE = "data/node1.csv";
+    // Dynamically determine CSV file and header based on URL path or query
+    function getNodeInfo() {
+      const pathMatch = window.location.pathname.match(/\/([\w-]+)\/?(index\.html)?$/);
+      let node = null;
+      if (pathMatch && pathMatch[1] && pathMatch[1] !== "index.html") {
+        node = pathMatch[1];
+      } else {
+        const params = new URLSearchParams(window.location.search);
+        if (params.has('node')) {
+          node = params.get('node');
+        }
+      }
+      if (!node) node = "node1";
+      return {
+        csv: `data/${node}.csv`,
+        node
+      };
+    }
+    const nodeInfo = getNodeInfo();
+    window.NODE_FILE = nodeInfo.csv;
+    // Set header title
+    function formatHeader(csv) {
+      // Map CSV file to header title
+      const map = {
+        'data/node1.csv': 'ROUND 1 - Node 1',
+        'data/node2.csv': 'ROUND 1 - Node 2',
+        'data/node3.csv': 'ROUND 1 - Node 3',
+        // Add more mappings as needed
+      };
+      return map[csv] || '44 Nodes - Secure Terminal';
+    }
+    document.getElementById('header-title').textContent = formatHeader(nodeInfo.csv);
   </script>
-
   <script src="game.js"></script>
 </body>
 </html>

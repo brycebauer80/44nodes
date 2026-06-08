@@ -13,10 +13,13 @@ function print(text) {
 
 async function loadCSV() {
   const res = await fetch(window.NODE_FILE);
+  if (!res.ok) {
+    print(`[ERROR] Could not load CSV: ${window.NODE_FILE}`);
+    challenges = [];
+    return;
+  }
   const text = await res.text();
-
   const rows = text.trim().split("\n").slice(1);
-
   challenges = rows.map(row => {
     const [title, description] = row.split(",");
     return { title, description };
@@ -109,5 +112,10 @@ input.addEventListener("keydown", e => {
 
 (async function init() {
   await loadCSV();
-  welcome();
+  if (challenges.length > 0) {
+    welcome();
+  } else {
+    print("No challenges available for this node.");
+    killSession();
+  }
 })();
