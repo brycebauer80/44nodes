@@ -33,6 +33,10 @@ function randomChallenge() {
 function killSession() {
   active = false;
   input.disabled = true;
+
+  try {
+    sessionStorage.setItem('challenge-locked', '1');
+  } catch (e) {}
 }
 
 function welcome() {
@@ -119,3 +123,11 @@ input.addEventListener("keydown", e => {
     killSession();
   }
 })();
+
+// On load, check if challenge is locked for this session
+try {
+  if (sessionStorage.getItem('challenge-locked') === '1') {
+    document.body.innerHTML = '<div style="color:#00ff66;font-family:monospace;padding:40px;text-align:center;">You must scan a new QR code to get a new challenge.<br><br>Reloading is not allowed.</div>';
+    throw new Error('Challenge locked');
+  }
+} catch (e) {}
