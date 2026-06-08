@@ -21,14 +21,14 @@
   <script>
     // Logic to adjust CSV file referenced dependent on the qr code scanned
     function getNodeInfo() {
-      const pathMatch = window.location.pathname.match(/\/([\w-]+)\/?(index\.html)?$/);
+      const params = new URLSearchParams(window.location.search);
       let node = null;
-      if (pathMatch && pathMatch[1] && pathMatch[1] !== "index.html") {
-        node = pathMatch[1];
+      if (params.has('node')) {
+        node = params.get('node');
       } else {
-        const params = new URLSearchParams(window.location.search);
-        if (params.has('node')) {
-          node = params.get('node');
+        const pathMatch = window.location.pathname.match(/\/([\w-]+)\/?(index\.html)?$/);
+        if (pathMatch && pathMatch[1] && pathMatch[1] !== "index.html") {
+          node = pathMatch[1];
         }
       }
       if (!node) node = "node1";
