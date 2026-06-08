@@ -90,6 +90,8 @@ input.addEventListener("keydown", e => {
       print("- Maintain terminal secrecy");
       print("- Send proof of mission completion to HQ");
       print("- Best of luck agent");
+      print("Session terminated.");
+
 
       killSession();
     }
@@ -100,6 +102,7 @@ input.addEventListener("keydown", e => {
       print("Assignment declined.");
       print("Wait 7 minutes before requesting another challenge.");
       print("No cheating.... remember Someone is always watching");
+      print("Try again soon agent");
       print("Session terminated.");
 
       killSession();

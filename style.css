@@ -1,18 +1,18 @@
 body {
   margin: 0;
-  background: black;
+  background: #000;
   color: #00ff66;
   font-family: monospace;
-  height: 100vh;
+  min-height: 100vh;
 }
 
 #header {
-  background: #496849 !important;
+  background: #818181;
   color: #00ff66;
   display: flex;
   align-items: center;
-  padding: 0 20px;
-  height: 48px;
+  padding: 0 16px;
+  height: 56px;
   position: fixed;
   top: 0;
   left: 0;
@@ -24,29 +24,43 @@ body {
 #header-icon {
   height: 32px;
   width: 32px;
-  vertical-align: middle;
-  margin-right: 10px;
+  margin-right: 12px;
   object-fit: contain;
 }
 
 #header-title {
-  font-size: 1.2em;
+  font-size: 1.1em;
   font-weight: bold;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 #terminal {
-  padding: 20px;
-  margin-top: 60px;
+  position: sticky;
+  top: 56px;
+  margin-top: 0;
+  padding: 16px;
+  background: #000;
+  border-radius: 0 0 8px 8px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.3);
+  max-width: 700px;
+  margin-left: auto;
+  margin-right: auto;
+  min-height: 60vh;
+  display: block;
 }
 
 #output {
   white-space: pre-wrap;
   margin-bottom: 10px;
+  font-size: 1em;
 }
 
 .input-line {
   display: flex;
   gap: 10px;
+  align-items: center;
 }
 
 input {
@@ -56,4 +70,32 @@ input {
   outline: none;
   font-family: monospace;
   width: 100%;
+  font-size: 1em;
+}
+
+@media (max-width: 600px) {
+  #header {
+    height: 48px;
+    padding: 0 8px;
+  }
+  #header-icon {
+    height: 24px;
+    width: 24px;
+    margin-right: 8px;
+  }
+  #header-title {
+    font-size: 1em;
+  }
+  #terminal {
+    top: 48px;
+    padding: 8px;
+    min-height: 50vh;
+    max-width: 100vw;
+  }
+  .input-line {
+    gap: 6px;
+  }
+  input {
+    font-size: 0.95em;
+  }
 }
