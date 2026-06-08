@@ -89,6 +89,9 @@ body {
   font-size: clamp(0.85em, 3.5vw, 1em);
   word-wrap: break-word;
   overflow-wrap: break-word;
+  max-height: calc(100vh - 140px);
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
 }
 
 .input-line {

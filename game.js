@@ -9,7 +9,8 @@ let active = true;
 
 function print(text) {
   output.innerHTML += text + "\n";
-  window.scrollTo(0, document.body.scrollHeight);
+  // Scroll the output area, not the whole page
+  output.scrollTop = output.scrollHeight;
 }
 
 // Collects challenge data from CSV
@@ -58,7 +59,7 @@ input.addEventListener("keydown", e => {
 
   const value = input.value.trim().toLowerCase();
 
-  print(">> " + value);
+  print("C:\\Users\\44nodes> " + value);
 
   input.value = "";
 
