@@ -6,9 +6,10 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div id="header" style="display:flex;align-items:center;padding:16px 20px 0 20px;">
-    <img id="header-icon" src="icon.png" alt="Node Icon" style="height:32px;width:32px;vertical-align:middle;margin-right:10px;">
-    <span id="header-title" style="font-size:1.2em;font-weight:bold;">Loading...</span>
+  <!-- Dynamic header-->
+  <div id="header">
+    <img id="header-icon" src="icon.png" alt="Node Icon">
+    <span id="header-title">Loading...</span>
   </div>
   <div id="terminal">
     <div id="output"></div>
@@ -18,7 +19,7 @@
     </div>
   </div>
   <script>
-    // Dynamically determine CSV file and header based on URL path or query
+    // Logic to adjust CSV file referenced dependent on the qr code scanned
     function getNodeInfo() {
       const pathMatch = window.location.pathname.match(/\/([\w-]+)\/?(index\.html)?$/);
       let node = null;
@@ -40,17 +41,19 @@
     window.NODE_FILE = nodeInfo.csv;
     // Set header title
     function formatHeader(csv) {
-      // Map CSV file to header title
+      // Change page title dependent on csv file linked
+      // Allows for randomised csv file naming to make the url more complex hard to guess (soooo secure yep haha)
       const map = {
         'data/node1.csv': 'ROUND 1 - Node 1',
         'data/node2.csv': 'ROUND 1 - Node 2',
         'data/node3.csv': 'ROUND 1 - Node 3',
-        // Add more mappings as needed
+        // Add extra here
       };
       return map[csv] || '44 Nodes - Secure Terminal';
     }
     document.getElementById('header-title').textContent = formatHeader(nodeInfo.csv);
   </script>
+  <!-- links the script game logic to html file-->
   <script src="game.js"></script>
 </body>
 </html>

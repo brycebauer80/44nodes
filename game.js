@@ -1,6 +1,7 @@
 const output = document.getElementById("output");
 const input = document.getElementById("input");
 
+// Reset state 
 let state = "welcome";
 let challenges = [];
 let currentChallenge = null;
@@ -11,6 +12,7 @@ function print(text) {
   window.scrollTo(0, document.body.scrollHeight);
 }
 
+// Collects challenge data from CSV
 async function loadCSV() {
   const res = await fetch(window.NODE_FILE);
   if (!res.ok) {
@@ -26,25 +28,30 @@ async function loadCSV() {
   });
 }
 
+//Picks random challenge
 function randomChallenge() {
   return challenges[Math.floor(Math.random() * challenges.length)];
 }
 
+// Kill session function
 function killSession() {
   active = false;
   input.disabled = true;
 
+  // Blocks players from reloading page
   try {
     sessionStorage.setItem('challenge-locked', '1');
   } catch (e) {}
 }
 
+// Initial welcome message 
 function welcome() {
   print("=== 44 NODES - SECURE TERMINAL ===");
   print("Welcome PLAYER");
   print("Type 'ready' to request assignment.");
 }
 
+// Player input 
 input.addEventListener("keydown", e => {
   if (e.key !== "Enter" || !active) return;
 
@@ -54,6 +61,7 @@ input.addEventListener("keydown", e => {
 
   input.value = "";
 
+  // Ready state true
   if (state === "welcome") {
     if (value === "ready") {
       currentChallenge = randomChallenge();
@@ -71,6 +79,7 @@ input.addEventListener("keydown", e => {
     }
   }
 
+  // Accept or decline challenge logic 
   else if (state === "challenge") {
 
     if (value === "accept") {
@@ -79,10 +88,10 @@ input.addEventListener("keydown", e => {
       print("[RULES]");
       print("- Do not disclose assignment");
       print("- Maintain terminal secrecy");
-      print("- Send proof of mission to HQ");
-      print("- Type 'logout' to terminate session");
+      print("- Send proof of mission completion to HQ");
+      print("- Best of luck agent");
 
-      state = "accepted";
+      killSession();
     }
 
     else if (value === "decline") {
@@ -90,6 +99,7 @@ input.addEventListener("keydown", e => {
       print("");
       print("Assignment declined.");
       print("Wait 7 minutes before requesting another challenge.");
+      print("No cheating.... remember Someone is always watching");
       print("Session terminated.");
 
       killSession();
@@ -100,26 +110,16 @@ input.addEventListener("keydown", e => {
     }
   }
 
-  else if (state === "accepted") {
-
-    if (value === "logout") {
-
-      print("");
-      print("Session terminated.");
-
-      killSession();
-    } else {
-      print("Command not recognized.");
-    }
-  }
 });
 
+
+//Invalid URL csv file name
 (async function init() {
   await loadCSV();
   if (challenges.length > 0) {
     welcome();
   } else {
-    print("No challenges available for this node.");
+    print("ACCESS DENIED - Scan a valid node");
     killSession();
   }
 })();
@@ -127,7 +127,7 @@ input.addEventListener("keydown", e => {
 // On load, check if challenge is locked for this session
 try {
   if (sessionStorage.getItem('challenge-locked') === '1') {
-    document.body.innerHTML = '<div style="color:#00ff66;font-family:monospace;padding:40px;text-align:center;">You must scan a new QR code to get a new challenge.<br><br>Reloading is not allowed.</div>';
+    document.body.innerHTML = '<div style="color:#00ff66;font-family:monospace;padding:40px;text-align:center;">You must scan the Node to get a new challenge.<br><br>Reloading is not allowed.</div>';
     throw new Error('Challenge locked');
   }
 } catch (e) {}
